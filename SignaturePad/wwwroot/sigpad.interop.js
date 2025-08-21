@@ -5,14 +5,17 @@ export function setup(id, reference, options, image) {
     dotNetHelper = reference;
     var identifier = "signature-" + id;
     var element = document.getElementById(identifier);
-
-    element.addEventListener("sigpad.finish", function (e) {
-        updateImage(id, e.detail)
-        reference.invokeMethodAsync('SignatureDataChangedAsync');
-    });
-
-    var sigpad = Sigpad.getOrCreateInstance(element, JSON.parse(options));
-    sigpad.setImage(image);
+    
+    if (element != null)
+    {    
+        element.addEventListener("sigpad.finish", function (e) {
+            updateImage(id, e.detail)
+            reference.invokeMethodAsync('SignatureDataChangedAsync');
+        });
+        
+        var sigpad = Sigpad.getOrCreateInstance(element, JSON.parse(options));
+        sigpad.setImage(image);
+    }
 }
 
 if (screen.orientation != null) {
